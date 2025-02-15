@@ -1,7 +1,9 @@
-Buy laptop
-tkinter solved
-complete day 16
-configure out git
+Revise chapter 1 of IS.
+Water the plants.
+Go play outside
 new item
-Writing new todo from a GUI
-haha cool
+Writing new feature in GUI
+editing
+Clean the room.
+go to terrace and collect the dried cloths.
+last todo added
