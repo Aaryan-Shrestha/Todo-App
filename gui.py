@@ -9,12 +9,15 @@ list_box = sg.Listbox(values=functions.get_todos(),
                       enable_events = True,
                       size=(50, 10))
 edit_button = sg.Button("Edit")
+complete_button  = sg.Button("Complete")
+exit_button = sg.Button("Exit")
 
 window = sg.Window("My First GUI App",
                    layout=[
                         [label],
                         [input_box, add_button],
-                        [list_box, edit_button]
+                        [list_box, edit_button, complete_button],
+                        [exit_button]
                    ],
                    font=('CaskaydiaCove Nerd Font', 14))
 
@@ -40,8 +43,19 @@ while True:
             functions.write_todos(todos)
             window["todos"].update(values=todos)
 
+        case "Complete":
+            todo_to_complete = values["todos"][0]
+            todos = functions.get_todos()
+            todos.remove(todo_to_complete)
+            functions.write_todos(todos)
+            window["todos"].update(values=todos)
+            window["todo"].update(value="")
+
         case "todos":
             window["todo"].update(value=values["todos"][0])
+
+        case "Exit":
+            exit()
 
         case sg.WIN_CLOSED:
             break
