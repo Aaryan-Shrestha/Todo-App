@@ -38,20 +38,20 @@ while True:
     match event:
         case "Add":
             todos = functions.get_todos()
-            new_todo = values["todo"] + "\n"
+            new_todo = values["todo"].strip() + "\n"
             todos.append(new_todo)
             functions.write_todos(todos)
-            window["todos"].update(values=todos)
+            window["todos"].update(values=[todo.strip() for todo in todos])
 
         case "Edit":
             try:
                 todo_to_edit = values["todos"][0]
-                new_todo = values["todo"] + "\n"
+                new_todo = values["todo"].strip() + "\n"
                 todos = functions.get_todos()
-                index = todos.index(todo_to_edit)
+                index = todos.index(todo_to_edit + "\n")
                 todos[index] = new_todo
                 functions.write_todos(todos)
-                window["todos"].update(values=todos)
+                window["todos"].update(values=[todo.strip() for todo in todos])
 
             except IndexError:
                 sg.popup("Please select an item first.",
@@ -59,11 +59,11 @@ while True:
 
         case "Complete":
             try:
-                todo_to_complete = values["todos"][0]
+                todo_to_complete = values["todos"][0].strip()
                 todos = functions.get_todos()
-                todos.remove(todo_to_complete)
+                todos.remove(todo_to_complete + "\n")
                 functions.write_todos(todos)
-                window["todos"].update(values=todos)
+                window["todos"].update(values=[todo.strip() for todo in todos])
                 window["todo"].update(value="")
 
             except IndexError:
