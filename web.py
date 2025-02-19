@@ -1,7 +1,6 @@
 import streamlit as st
 import functions
 
-
 todos = functions.get_todos()
 
 def add_todo():
@@ -9,13 +8,17 @@ def add_todo():
     todos.append(new_todo)
     functions.write_todos(todos)
 
-
 st.title("My Todo App")
 st.subheader("This is my todo app.")
 st.write("This app is to increase your productivity.")
 
-for todo in todos:
-    st.checkbox(todo)
+for index, todo in enumerate(todos):
+    checkbox = st.checkbox(todo, key=todo)
+    if checkbox:
+        todos.pop(index)
+        functions.write_todos(todos)
+        del st.session_state[todo]
+        st.rerun()
 
 st.text_input(label="Enter todos: ",
               label_visibility = "hidden",
@@ -24,4 +27,4 @@ st.text_input(label="Enter todos: ",
               key="new_todo")
 
 
-st.session_state # Dictionary
+# st.session_state # Gives a similar object like Dictionary
